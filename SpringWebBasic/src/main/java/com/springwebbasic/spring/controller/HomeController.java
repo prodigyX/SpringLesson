@@ -1,4 +1,4 @@
-package com.accenture.spring;
+package com.springwebbasic.spring.controller;
 
 import java.text.DateFormat;
 import java.util.Date;
