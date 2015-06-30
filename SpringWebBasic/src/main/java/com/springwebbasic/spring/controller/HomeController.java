@@ -56,4 +56,28 @@ public class HomeController {
 		return "compute";
 	}
 	
+	
+	@RequestMapping(value = "/redirect", method = {RequestMethod.POST, RequestMethod.GET})
+	public String redirect(Model model, @ModelAttribute ("result") Result result) {		
+		
+		//this is wrong but for sample purposes
+				int sum = result.getValue1() +  result.getValue2();
+				
+				logger.info("sum is", sum);
+				System.out.println("sum is" +  sum);
+				model.addAttribute("sum", sum);
+		return "redirect:compute";
+	}
+	
+	@RequestMapping(value = "/forward", method = {RequestMethod.POST, RequestMethod.GET})
+	public String forward(Model model, @ModelAttribute ("result") Result result) {		
+		//this is wrong but for sample purposes
+				int sum = result.getValue1() +  result.getValue2();
+				
+				logger.info("sum is", sum);
+				System.out.println("sum is" +  sum);
+				model.addAttribute("sum", sum);
+		return "forward:compute";
+	}
+	
 }
