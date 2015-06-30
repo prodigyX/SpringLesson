@@ -9,6 +9,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -59,25 +60,26 @@ public class HomeController {
 	
 	@RequestMapping(value = "/redirect", method = {RequestMethod.POST, RequestMethod.GET})
 	public String redirect(Model model, @ModelAttribute ("result") Result result) {		
-		
-		//this is wrong but for sample purposes
-				int sum = result.getValue1() +  result.getValue2();
-				
-				logger.info("sum is", sum);
-				System.out.println("sum is" +  sum);
-				model.addAttribute("sum", sum);
 		return "redirect:compute";
 	}
 	
 	@RequestMapping(value = "/forward", method = {RequestMethod.POST, RequestMethod.GET})
 	public String forward(Model model, @ModelAttribute ("result") Result result) {		
-		//this is wrong but for sample purposes
-				int sum = result.getValue1() +  result.getValue2();
-				
-				logger.info("sum is", sum);
-				System.out.println("sum is" +  sum);
-				model.addAttribute("sum", sum);
 		return "forward:compute";
+	}
+	
+	@RequestMapping(value = "/compute/{value1}/{value2}", method = {RequestMethod.POST, RequestMethod.GET})
+	public String parameterPass(Model model, @PathVariable(value = "value1") int value1, @PathVariable(value = "value2") int value2) {		
+		logger.info("computeData Called");
+		
+		//this is wrong but for sample purposes
+		int sum = value1 +  value2;
+		
+		logger.info("sum is", sum);
+		System.out.println("sum is" +  sum);
+		model.addAttribute("sum", sum);
+		
+		return "compute";
 	}
 	
 }
